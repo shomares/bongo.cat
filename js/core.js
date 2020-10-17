@@ -1,3 +1,5 @@
+let currentNote  =  null
+
 Array.prototype.remove = function(el) {
   return this.splice(this.indexOf(el), 1);
 }
@@ -182,7 +184,42 @@ $.load = function(file, start, end) {
 $.wait = function(callback, ms) {
   return window.setTimeout(callback, ms);
 }
+
+function record(data){
+  const isRecording =  sessionStorage.getItem('IsRecording')
+  
+
+  if(isRecording && isRecording === "true"){
+
+    let arrayToRecord = sessionStorage.getItem('Record')
+
+    if(!arrayToRecord){
+      arrayToRecord = []
+    }else{
+      arrayToRecord = JSON.parse(arrayToRecord)
+    }
+   
+    arrayToRecord.push(data)
+
+    sessionStorage.setItem('Record', JSON.stringify(arrayToRecord))
+  }
+}
+
 $.play = function(instrument, key, state) {
+
+  const data  = {
+    instrument,
+    key,
+    state,
+    toExecuted : new Date(),
+    diff :  currentNote ?  new Date().getTime() - currentNote.toExecuted.getTime()  : 0
+  }
+
+  currentNote = {...data}
+
+
+  record(data)
+
   var instrumentName = Object.keys(InstrumentEnum).find(k => InstrumentEnum[k] === instrument).toLowerCase();
   var commonKey = KeyEnum[key];
   var id = "#" + (instrument == InstrumentEnum.MEOW ? "mouth" : "paw-" + ((instrument == InstrumentEnum.BONGO ? commonKey : commonKey <= 5 && commonKey != 0 ? 0 : 1) == 0 ? "left" : "right"));
@@ -202,6 +239,8 @@ $.play = function(instrument, key, state) {
     pressed.remove(commonKey);
   }
   $(id).css("background-position-x", (state ? "-800px" : "0"));
+
+
 }
 $.layers = function(selectedLayer) {
   if (selectedLayer !== currentLayer) {

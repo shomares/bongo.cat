@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/shomares/bongo.cat/issues"
   },
-  "homepage": "https://github.com/shomares/bongo.cat#readme"
+  "homepage": "https://github.com/shomares/bongo.cat#readme",
+  "dependencies": {
+    "rxjs": "^6.6.3"
+  }
 }
