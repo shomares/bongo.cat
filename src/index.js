@@ -21,6 +21,8 @@ const saveRecordingButton = (toRecord) => {
 const toPlay = (array = []) => {
 
     isPlaying = true
+    window.sessionStorage.removeItem('Record')
+    
     const source$ = from(array).pipe(
         concatMap(x => of(x).pipe(delay(x.diff)))
     )
@@ -30,7 +32,6 @@ const toPlay = (array = []) => {
     }, () => {
 
     }, ()=> {
-       window.sessionStorage.removeItem('Record')
        isPlaying = false
        currentNote = null
 
@@ -43,7 +44,7 @@ const startPlaying  =() => {
 
     if(recorded){
         recorded= JSON.parse(recorded)
-        toPlay(recorded)
+        toPlay([...recorded])
     }
 
 }
@@ -52,9 +53,19 @@ const startPlaying  =() => {
 
 toClick$.subscribe( () => {
     console.log('Click')
-    clickButton.innerHTML = toRecording? 'Record' : 'Recording ...'
+    clickButton.innerHTML = toRecording? 'Record' : `
+        <span>
+            <div>Recording</div> 
+        </span>
+        <div class='point point--1'>.</div>
+        <div class='point point--2'>.</div>
+        <div class='point point--1'>.</div>`
+
+
     toRecording = !toRecording
     saveRecordingButton(toRecording)
+
+
 
     if(!toRecording)
     {
