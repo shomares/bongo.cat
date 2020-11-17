@@ -3,6 +3,9 @@
   <img src="https://bongo.cat/meta/thumbnail.png">
 </p>
 Hit the bongos like Bongo Cat! https://bongo.cat
+You can hit these modified version on http://bongocatshomares.s3-website.us-east-2.amazonaws.com/
+Which could record all that cat could do!
+Just for fun!
 
 ## About the meme
 Bongo Cat is a meme created by [DitzyFlama](https://twitter.com/DitzyFlama) ([tweet](https://twitter.com/DitzyFlama/status/993487015499853824)) using [StrayRogue](https://twitter.com/StrayRogue)'s [drawing of a cat](https://twitter.com/StrayRogue/status/992994454058381312).
